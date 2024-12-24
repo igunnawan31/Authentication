@@ -13,11 +13,13 @@ import {
   Text,
 } from 'react-native';
 import SignInScreen from './src/screens/SignInScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
+import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
 
 function App(): React.JSX.Element {
   return (
     <SafeAreaView style={styles.root}>
-      <SignInScreen />
+      <ForgotPasswordScreen />
     </SafeAreaView>
   );
 }

@@ -66,7 +66,7 @@ const SignInScreen = () => {
                     type="tertiary"
                 />
 
-                <Text>Or</Text>
+                <Text style>Or</Text>
                 
                 <CustomButton 
                     text="Sign In with Google"

@@ -3,34 +3,33 @@ import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView} from "r
 import Logo from '../../../assets/images/Logo_Bean.png';
 import CustomInput from "../../component/CustomInput";
 import CustomButton from "../../component/CustomButton";
+import SocialSignInButton from "../SocialSignInButton.js";
+import { useNavigation } from "@react-navigation/native";
 
 const SignInScreen = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const {height} = useWindowDimensions();
+    const navigation = useNavigation();
+
     const onSignInPressed = () => {
         console.warn("Sign In");
+        // validate user
+
+        navigation.navigate('Home');
     }
 
     const onForgotPasswordPressed = () => {
         console.warn("onForgotPasswordPressed");
-    }
 
-    const onSignInGooglePressed = () => {
-        console.warn("onSignInGooglePressed");
-    }
-
-    const onSignInMicrosoftPressed = () => {
-        console.warn("onSignInMicrosoftPressed");
-    }
-    
-    const onSignInFacebookPressed = () => {
-        console.warn("onSignInFacebookPressed");
+        navigation.navigate('ForgotPassword');
     }
 
     const onSignUpPressed = () => {
         console.warn("onSignUpPressed");
+
+        navigation.navigate('SignUp');
     }
 
     return (
@@ -67,27 +66,8 @@ const SignInScreen = () => {
                 />
 
                 <Text style>Or</Text>
-                
-                <CustomButton 
-                    text="Sign In with Google"
-                    onPress={onSignInGooglePressed}
-                    bgColor="#E7EAF4"
-                    fgColor="#4765A9"
-                />
 
-                <CustomButton 
-                    text="Sign In with Microsoft"
-                    onPress={onSignInMicrosoftPressed}
-                    bgColor="#FAE9EA"
-                    fgColor="#DD4D44"
-                />
-
-                <CustomButton 
-                    text="Sign In with Facebook"
-                    onPress={onSignInFacebookPressed}
-                    bgColor="#E3E3E3"
-                    fgColor="#363636"
-                />
+                <SocialSignInButton />
 
                 <CustomButton 
                     text="Don't have an account? Create one"

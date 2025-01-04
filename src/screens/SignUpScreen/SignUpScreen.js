@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import { View, Text, StyleSheet, useWindowDimensions, ScrollView } from 'react-native'
 import CustomInput from "../../component/CustomInput";
 import CustomButton from "../../component/CustomButton";
+import SocialSignInButton from '../SocialSignInButton.js/SocialSignInButton';
+import { useNavigation } from "@react-navigation/native";
 
 
 const SignUpScreen = () => {
@@ -10,32 +12,30 @@ const SignUpScreen = () => {
     const [password, setPassword] = useState('');
     const [confirmpassword, setConfirmPassword] = useState('');
 
+    const navigation = useNavigation();
+
     const onRegisterPressed = () => {
         console.warn("onRegisterPressed");
+
+        navigation.navigate("ConfirmEmail");
     }
 
     const onTermsPressed = () => {
         console.warn("onTermsPressed");
+
+        navigation.navigate("");
     }
 
     const onPrivacyPressed = () => {
         console.warn("onPrivacyPressed");
-    }
 
-    const onSignInGooglePressed = () => {
-        console.warn("onSignInGooglePressed");
-    }
-
-    const onSignInMicrosoftPressed = () => {
-        console.warn("onSignInMicrosoftPressed");
-    }
-    
-    const onSignInFacebookPressed = () => {
-        console.warn("onSignInFacebookPressed");
+        navigation.navigate("");
     }
 
     const onSignInPressed = () => {
         console.warn("onSignInPressed");
+
+        navigation.navigate('SignIn');
     }
 
     return (
@@ -77,26 +77,7 @@ const SignUpScreen = () => {
                     <Text style={styles.terms} onPress={onTermsPressed}> Terms of Service</Text> and <Text style={styles.privacy} onPress={onPrivacyPressed}>Privacy Policy</Text>.
                 </Text>
 
-                <CustomButton 
-                    text="Sign In with Google"
-                    onPress={onSignInGooglePressed}
-                    bgColor="#E7EAF4"
-                    fgColor="#4765A9"
-                />
-
-                <CustomButton 
-                    text="Sign In with Microsoft"
-                    onPress={onSignInMicrosoftPressed}
-                    bgColor="#FAE9EA"
-                    fgColor="#DD4D44"
-                />
-
-                <CustomButton 
-                    text="Sign In with Facebook"
-                    onPress={onSignInFacebookPressed}
-                    bgColor="#E3E3E3"
-                    fgColor="#363636"
-                />
+                <SocialSignInButton />
 
                 <CustomButton 
                     text="Have an Account? Sign In Here"

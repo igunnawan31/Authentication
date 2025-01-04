@@ -12,14 +12,13 @@ import {
   StyleSheet,
   Text,
 } from 'react-native';
-import SignInScreen from './src/screens/SignInScreen';
-import SignUpScreen from './src/screens/SignUpScreen';
-import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
+
+import Navigation from './src/navigation/index.js';
 
 function App(): React.JSX.Element {
   return (
     <SafeAreaView style={styles.root}>
-      <ForgotPasswordScreen />
+      <Navigation />
     </SafeAreaView>
   );
 }

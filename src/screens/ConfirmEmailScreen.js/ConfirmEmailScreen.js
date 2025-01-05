@@ -4,12 +4,15 @@ import CustomInput from "../../component/CustomInput";
 import CustomButton from "../../component/CustomButton";
 import SocialSignInButton from '../SocialSignInButton.js/SocialSignInButton';
 import { useNavigation } from '@react-navigation/native';
+import { useForm } from 'react-hook-form';
 
 const ConfirmEmailScreen = () => {
-    const [username, setUsername] = useState('');
-    const [code, setCode] = useState('');
-
     const navigation = useNavigation();
+    const { 
+        control,
+        handleSubmit,
+        formState: {errors},
+    } = useForm();
 
     const onResentPressed = () => {
         console.warn("onResentPressed");
@@ -33,14 +36,25 @@ const ConfirmEmailScreen = () => {
                 <Text style={styles.title}>Confirm Sign Up</Text>
 
                 <CustomInput 
+                    name="confirmationcode"
                     placeholder="Enter your confirmation code"
-                    value={code}
-                    setValue={setCode}
+                    control={control}
+                    rules={{ 
+                        required: 'Confirmation Code is required',
+                        minLength: {
+                            value: 4,
+                            message: 'Confirmation Code must be 4 characters long'
+                        },
+                        maxLength: {
+                            value: 4,
+                            message: 'Confirmation Code must be 4 characters long'
+                        },
+                    }}
                 />
 
                 <CustomButton 
                     text="Confirm"
-                    onPress={onConfirmPressed}
+                    onPress={handleSubmit(onConfirmPressed)}
                 />
 
                 <CustomButton 

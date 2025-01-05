@@ -4,15 +4,31 @@ import CustomInput from "../../component/CustomInput";
 import CustomButton from "../../component/CustomButton";
 import SocialSignInButton from '../SocialSignInButton.js/SocialSignInButton';
 import { useNavigation } from "@react-navigation/native";
+import { useForm } from "react-hook-form";
 
+
+const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
 
 const SignUpScreen = () => {
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmpassword, setConfirmPassword] = useState('');
-
     const navigation = useNavigation();
+
+    const {
+        control, 
+        handleSubmit,
+        watch,
+    } = useForm();
+
+    // const {
+    //     control, 
+    //     handleSubmit,
+    //     watch,
+    // } = useForm({defaultValues: {
+    //     username: "Default Username",
+    // }});
+
+    // DefaultValues used for debugging
+
+    const pwd = watch('password');
 
     const onRegisterPressed = () => {
         console.warn("onRegisterPressed");
@@ -44,32 +60,71 @@ const SignUpScreen = () => {
                 <Text style={styles.title}>Create Your Account</Text>
 
                 <CustomInput 
+                    name="username"
                     placeholder="Type your username"
-                    value={username}
-                    setValue={setUsername}
+                    control={control}
+                    rules={{
+                        required: 'Username is required', 
+                        minLength: {
+                            value: 3, 
+                            message: 'Username should be minimum 3 characters long',
+                        },
+                        maxLength: {
+                            value: 20,
+                            message: 'Username cannot be more than 20 characters',
+                        }
+                    }}
                 />
 
                 <CustomInput 
+                    name="email"
                     placeholder="Type your email"
-                    value={email}
-                    setValue={setEmail}
+                    control={control}
+                    rules={{
+                        required: 'Email is required', 
+                        pattern: {
+                            value: EMAIL_REGEX, 
+                            message: 'Email is not valid'},
+                    }}
                 />
 
                 <CustomInput 
+                    name="password"
                     placeholder="Type your password"
-                    value={password}
-                    setValue={setPassword}
+                    control={control}
+                    secureTextEntry
+                    rules={{
+                        required: 'Password is required', 
+                        minLength: {
+                            value: 8, 
+                            message: 'Password should be minimum 8 characters long',
+                        },
+                        maxLength: {
+                            value: 40,
+                            message: 'Username cannot be more than 40 characters',
+                        }
+                    }}
                 />
 
                 <CustomInput 
+                    name="confirmation-password"
                     placeholder="Confirm your password"
-                    value={confirmpassword}
-                    setValue={setConfirmPassword}
+                    control={control}
+                    secureTextEntry
+                    rules={{
+                        required: 'Confirmation Password is required', 
+                        minLength: {
+                            value: 3, 
+                            message: 'Confirmation Password should be minimum 3 characters long',
+                        },
+                        validate: 
+                            value => value === pwd || 'Password do not match',
+                    }}
                 />
 
                 <CustomButton 
                     text="Register"
-                    onPress={onRegisterPressed}
+                    onPress={handleSubmit(onRegisterPressed)}
                 />
 
                 <Text style={styles.terms_privacy}>
